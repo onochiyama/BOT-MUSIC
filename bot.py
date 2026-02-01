@@ -12,6 +12,13 @@ import threading
 # โหลด environment variables
 load_dotenv()
 
+# เพิ่ม Deno และ FFmpeg path สำหรับ yt-dlp
+deno_path = os.path.expanduser("~/.deno/bin")
+ffmpeg_path = "C:/ffmpeg/ffmpeg-master-latest-win64-gpl/bin"
+if os.name == 'nt':  # Windows
+    deno_path = os.path.join(os.environ.get('USERPROFILE', ''), '.deno', 'bin')
+os.environ['PATH'] = ffmpeg_path + os.pathsep + deno_path + os.pathsep + os.environ.get('PATH', '')
+
 # ตั้งค่า intents
 intents = discord.Intents.default()
 intents.message_content = True
@@ -34,6 +41,10 @@ ytdl_format_options = {
     'default_search': 'auto',
     'source_address': '0.0.0.0',
     'extract_flat': False,
+    # ใช้ไฟล์ cookies.txt เพื่อ bypass YouTube bot detection
+    'cookiefile': 'cookies.txt',
+    # เปิดใช้ remote components สำหรับ YouTube challenge solving
+    'extractor_args': {'youtube': {'ejs_allow_remote': ['github']}},
 }
 
 ffmpeg_options = {
