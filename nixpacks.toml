@@ -1,2 +1,5 @@
-[packages]
-ffmpeg = "*"
+[phases.setup]
+aptPkgs = ["ffmpeg"]
+
+[phases.install]
+cmds = ["pip install -r requirements.txt"]
