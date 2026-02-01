@@ -1,0 +1,16 @@
+services:
+  - type: worker
+    name: music-bot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: DISCORD_TOKEN
+        sync: false
+      - key: API_PORT
+        value: 5000
+      - key: DEFAULT_GUILD_ID
+        sync: false
+    buildFilter:
+      paths:
+        - "**/*"
